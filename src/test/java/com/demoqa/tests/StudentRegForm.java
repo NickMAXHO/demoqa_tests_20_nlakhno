@@ -4,7 +4,6 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.Keys;
 
 import java.io.File;
 
@@ -24,7 +23,6 @@ public class StudentRegForm {
 
     @Test
     void successRegFormTest(){
-
         String userpicPath = "src/Files/manWithNoName.jpg";
         String thanksText = "Thanks for submitting the form";
 
@@ -34,11 +32,14 @@ public class StudentRegForm {
         $("#firstName").setValue("Rajesh");
         $("#lastName").setValue("Koothrappali");
         $("#userEmail").setValue("Koothrappali@Rajesh.com");
-        $(byText("Male")).click();
+        $("#genterWrapper").$(byText("Male")).click();
         $("#userNumber").setValue("9075556785");
-        $("#dateOfBirthInput").sendKeys(Keys.chord(Keys.CONTROL, "a"));
-        $("#dateOfBirthInput").sendKeys("28 May 1990");
-        $("#dateOfBirthInput").pressEnter();
+        $("#dateOfBirth-wrapper").$("#dateOfBirthInput").click();
+        $("#dateOfBirth-wrapper").$(".react-datepicker__month-select").click();
+        $("#dateOfBirth-wrapper").$(byText("May")).click();
+        $("#dateOfBirth-wrapper").$(".react-datepicker__year-select").click();
+        $("#dateOfBirth-wrapper").$(byText("1990")).click();
+        $(".react-datepicker__day--028").click();
         $("#subjectsInput").sendKeys("c");
         $("#subjectsInput").sendKeys("o");
         $("#subjectsInput").pressEnter();
@@ -46,8 +47,8 @@ public class StudentRegForm {
         $("#subjectsInput").pressEnter();
         $("#subjectsInput").sendKeys("e");
         $("#subjectsInput").pressEnter();
-        $(byText("Reading")).click();
-        $(byText("Music")).click();
+        $("#hobbiesWrapper").$(byText("Reading")).click();
+        $("#hobbiesWrapper").$(byText("Music")).click();
         $("#uploadPicture").uploadFile(new File(userpicPath));
         $("#state").click();
         $(byText("NCR")).click();
