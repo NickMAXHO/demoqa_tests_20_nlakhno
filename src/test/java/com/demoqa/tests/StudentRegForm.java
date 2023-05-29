@@ -5,10 +5,10 @@ import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
 
 public class StudentRegForm {
 
@@ -22,14 +22,10 @@ public class StudentRegForm {
 
     @Test
     void successRegFormTest() {
-        String userpicPath = "src/Files/manWithNoName.jpg";
         String thanksText = "Thanks for submitting the form";
 
 
         open("/automation-practice-form");
-
-        executeJavaScript("$('#fixedban').remove()");
-        executeJavaScript("$('footer').remove()");
 
         $("#firstName").setValue("Rajesh");
         $("#lastName").setValue("Koothrappali");
@@ -37,13 +33,11 @@ public class StudentRegForm {
         $("#genterWrapper").$(byText("Male")).click();
         $("#userNumber").setValue("9075556785");
         $("#dateOfBirth-wrapper").$("#dateOfBirthInput").click();
-        $("#dateOfBirth-wrapper").$(".react-datepicker__month-select").click();
-        $("#dateOfBirth-wrapper").$(byText("May")).click();
+        $("#dateOfBirth-wrapper").$(".react-datepicker__month-select").selectOption(5);
         $("#dateOfBirth-wrapper").$(".react-datepicker__year-select").click();
         $("#dateOfBirth-wrapper").$(byText("1990")).click();
-        $(".react-datepicker__day--028").click();
-        $("#subjectsInput").sendKeys("c");
-        $("#subjectsInput").sendKeys("o");
+        $(".react-datepicker__day--029").click();
+        $("#subjectsInput").sendKeys("co");
         $("#subjectsInput").pressEnter();
         $("#subjectsInput").sendKeys("m");
         $("#subjectsInput").pressEnter();
@@ -51,27 +45,24 @@ public class StudentRegForm {
         $("#subjectsInput").pressEnter();
         $("#hobbiesWrapper").$(byText("Reading")).click();
         $("#hobbiesWrapper").$(byText("Music")).click();
-        $("#uploadPicture").uploadFile(new File(userpicPath));
-        $("#state").click();
-        $(byText("NCR")).click();
-        $(byText("Select City")).click();
-        $(byText("Delhi")).click();
+        $("#uploadPicture").uploadFromClasspath("manWithNoName.jpg");
         $("#currentAddress").setValue("Some address 1");
+        $("#stateCity-wrapper").$("#state").click();
+        $("#stateCity-wrapper").$(byText("NCR")).click();
+        $("#stateCity-wrapper").$("#city").click();
+        $("#stateCity-wrapper").$(byText("Delhi")).click();
         $("#submit").click();
 
         $(byText(thanksText)).shouldBe(Condition.visible);
-        $(byText("Rajesh Koothrappali")).shouldBe(Condition.visible);
-        $(byText("Koothrappali@Rajesh.com")).shouldBe(Condition.visible);
-        $(byText("Male")).shouldBe(Condition.visible);
-        $(byText("9075556785")).shouldBe(Condition.visible);
-        $(byText("28 May,1990")).shouldBe(Condition.visible);
-        $(byText("Computer Science")).shouldBe(Condition.visible);
-        $(byText("Maths")).shouldBe(Condition.visible);
-        $(byText("English")).shouldBe(Condition.visible);
-        $(byText("Reading, Music")).shouldBe(Condition.visible);
-        $(byText("manWithNoName.jpg")).shouldBe(Condition.visible);
-        $(byText("Some address 1")).shouldBe(Condition.visible);
-        $(byText("NCR Delhi")).shouldBe(Condition.visible);
-        }
+        $(".table-responsive").$(byText("Student Name")).parent().shouldHave(text("Rajesh Koothrappali"));
+        $(".table-responsive").$(byText("Student Email")).parent().shouldHave(text("Koothrappali@Rajesh.com"));
+        $(".table-responsive").$(byText("Gender")).parent().shouldHave(text("Male"));
+        $(".table-responsive").$(byText("Mobile")).parent().shouldHave(text("9075556785"));
+        $(".table-responsive").$(byText("Date of Birth")).parent().shouldHave(text("29 May,1990"));
+        $(".table-responsive").$(byText("Subjects")).parent().shouldHave(text("Computer Science, Maths, English"));
+        $(".table-responsive").$(byText("Hobbies")).parent().shouldHave(text("Reading, Music"));
+        $(".table-responsive").$(byText("Picture")).parent().shouldHave(text("manWithNoName.jpg"));
+        $(".table-responsive").$(byText("Address")).parent().shouldHave(text("Some address 1"));
+        $(".table-responsive").$(byText("State and City")).parent().shouldHave(text("NCR Delhi"));
     }
 }
