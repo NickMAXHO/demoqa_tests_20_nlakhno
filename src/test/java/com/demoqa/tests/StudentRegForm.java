@@ -8,8 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 
 public class StudentRegForm {
 
@@ -28,6 +27,9 @@ public class StudentRegForm {
 
 
         open("/automation-practice-form");
+
+        executeJavaScript("$('#fixedban').remove()");
+        executeJavaScript("$('footer').remove()");
 
         $("#firstName").setValue("Rajesh");
         $("#lastName").setValue("Koothrappali");
@@ -70,5 +72,6 @@ public class StudentRegForm {
         $(byText("manWithNoName.jpg")).shouldBe(Condition.visible);
         $(byText("Some address 1")).shouldBe(Condition.visible);
         $(byText("NCR Delhi")).shouldBe(Condition.visible);
+        }
     }
 }
