@@ -14,7 +14,7 @@ import static com.codeborne.selenide.Selenide.open;
 public class StudentRegForm {
 
     @BeforeAll
-    static void beforeAll(){
+    static void beforeAll() {
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.browserSize = "1920x1080";
         Configuration.pageLoadStrategy = "eager";
@@ -22,7 +22,7 @@ public class StudentRegForm {
     }
 
     @Test
-    void successRegFormTest(){
+    void successRegFormTest() {
         String userpicPath = "src/Files/manWithNoName.jpg";
         String thanksText = "Thanks for submitting the form";
 
