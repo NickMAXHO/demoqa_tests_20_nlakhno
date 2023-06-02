@@ -2,8 +2,9 @@ package com.demoqa.pages;
 
 import com.codeborne.selenide.SelenideElement;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selenide.*;
 
 public class RegistrationPage {
 
@@ -15,6 +16,9 @@ public class RegistrationPage {
 
     public RegistrationPage openPage(){
         open("/automation-practice-form");
+        $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
+        executeJavaScript("$('#fixedban').remove()");
+        executeJavaScript("$('footer').remove()");
 
         return this;
     }
@@ -35,7 +39,7 @@ public class RegistrationPage {
     }
 
     public RegistrationPage setGender(String value){
-        genderWrapper.setValue(value);
+        genderWrapper.$(byText(value)).click();
         return this;
     }
 }
