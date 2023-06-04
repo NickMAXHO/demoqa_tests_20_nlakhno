@@ -4,6 +4,7 @@ import com.codeborne.selenide.SelenideElement;
 import com.demoqa.pages.components.CalendarComponent;
 
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.value;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -17,7 +18,13 @@ public class RegistrationPage {
             userEmailInput = $("#userEmail"),
             genderWrapper = $("#genterWrapper"),
             userNumberInput = $("#userNumber"),
-            birthdayInput = $("#dateOfBirthInput");
+            birthdayInput = $("#dateOfBirthInput"),
+            subjectsInput = $("#subjectsInput"),
+            hobbyCheckbox = $("#hobbiesWrapper"),
+            pictureUploadInput = $("#uploadPicture"),
+            currentAddressInput =  $("#currentAddress"),
+            stateAndCityInput = $("#stateCity-wrapper"),
+            submitButton = $("#submit");
 
 
     public RegistrationPage openPage(){
@@ -62,6 +69,46 @@ public class RegistrationPage {
     public RegistrationPage setBirthDay(String day, String month, String year){
         birthdayInput.click();
         calendarComponent.setDate(day, month, year);
+
+        return this;
+    }
+
+    public RegistrationPage setSubjects(String value){
+        subjectsInput.setValue(value);
+        subjectsInput.pressEnter();
+
+        return this;
+    }
+
+    public RegistrationPage setHobby(String value){
+        hobbyCheckbox.$(byText(value)).click();
+
+        return this;
+    }
+
+    public RegistrationPage uploadPicture(String value){
+        pictureUploadInput.uploadFromClasspath(value);
+
+        return this;
+    }
+
+    public RegistrationPage setCurrentAddress(String value){
+        currentAddressInput.setValue(value);
+
+        return this;
+    }
+
+    public RegistrationPage setStateAndCity(String state, String city){
+        stateAndCityInput.$("#state").click();
+        stateAndCityInput.$(byText(state)).click();
+        stateAndCityInput.$("#city").click();
+        stateAndCityInput.$(byText(city)).click();
+
+        return this;
+    }
+
+    public RegistrationPage submit(){
+        submitButton.click();
 
         return this;
     }

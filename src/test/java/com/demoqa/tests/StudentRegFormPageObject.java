@@ -26,24 +26,16 @@ public class StudentRegFormPageObject extends TestBase {
                 .setUserEmailInput("Koothrappali@Rajesh.com")
                 .setGender("Male")
                 .setUserNumber("9075556785")
-                .setBirthDay("03", "June", "1990");
-
-
-        $("#subjectsInput").sendKeys("co");
-        $("#subjectsInput").pressEnter();
-        $("#subjectsInput").sendKeys("m");
-        $("#subjectsInput").pressEnter();
-        $("#subjectsInput").sendKeys("e");
-        $("#subjectsInput").pressEnter();
-        $("#hobbiesWrapper").$(byText("Reading")).click();
-        $("#hobbiesWrapper").$(byText("Music")).click();
-        $("#uploadPicture").uploadFromClasspath("manWithNoName.jpg");
-        $("#currentAddress").setValue("Some address 1");
-        $("#stateCity-wrapper").$("#state").click();
-        $("#stateCity-wrapper").$(byText("NCR")).click();
-        $("#stateCity-wrapper").$("#city").click();
-        $("#stateCity-wrapper").$(byText("Delhi")).click();
-        $("#submit").click();
+                .setBirthDay("03", "June", "1990")
+                .setSubjects("Computer Science")
+                .setSubjects("Maths")
+                .setSubjects("English")
+                .setHobby("Reading")
+                .setHobby("Music")
+                .uploadPicture("manWithNoName.jpg")
+                .setCurrentAddress("Some address 1")
+                .setStateAndCity("NCR", "Delhi")
+                .submit();
 
         $(byText(thanksText)).shouldBe(Condition.visible);
         $(".table-responsive").$(byText("Student Name")).parent().shouldHave(text("Rajesh Koothrappali"));
@@ -58,36 +50,4 @@ public class StudentRegFormPageObject extends TestBase {
         $(".table-responsive").$(byText("State and City")).parent().shouldHave(text("NCR Delhi"));
     }
 
-    @Test
-    void negativeRegFormTest() {
-        String thanksText = "Thanks for submitting the form";
-
-
-        open("/automation-practice-form");
-
-        firstNameInput.setValue("Rajesh");
-        lastNameInput.setValue("Koothrappali");
-        $("#userEmail").setValue("Koothrappali@Rajesh.com");
-        $("#genterWrapper").$(byText("Male")).click();
-        $("#userNumber").setValue("9075556785");
-        $("#dateOfBirth-wrapper").$("#dateOfBirthInput").click();
-        $("#dateOfBirth-wrapper").$(".react-datepicker__month-select").selectOption(5);
-        $("#dateOfBirth-wrapper").$(".react-datepicker__year-select").click();
-        $("#dateOfBirth-wrapper").$(byText("1990")).click();
-        $(".react-datepicker__day--029").click();
-        $("#subjectsInput").sendKeys("co");
-        $("#subjectsInput").pressEnter();
-        $("#subjectsInput").sendKeys("m");
-        $("#subjectsInput").pressEnter();
-        $("#subjectsInput").sendKeys("e");
-        $("#subjectsInput").pressEnter();
-        $("#hobbiesWrapper").$(byText("Reading")).click();
-        $("#hobbiesWrapper").$(byText("Music")).click();
-        $("#uploadPicture").uploadFromClasspath("manWithNoName.jpg");
-        $("#currentAddress").setValue("Some address 1");
-        $("#stateCity-wrapper").$("#state").click();
-        $("#stateCity-wrapper").$(byText("NCR")).click();
-        $("#stateCity-wrapper").$("#city").click();
-        $("#stateCity-wrapper").$(byText("Delhi")).click();
-        $("#submit").click();
 }

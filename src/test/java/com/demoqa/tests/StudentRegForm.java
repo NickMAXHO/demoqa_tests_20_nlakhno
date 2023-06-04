@@ -12,8 +12,6 @@ import static com.codeborne.selenide.Selenide.open;
 
 public class StudentRegForm extends TestBase {
 
-
-
     @Test
     void successRegFormTest() {
         String thanksText = "Thanks for submitting the form";
