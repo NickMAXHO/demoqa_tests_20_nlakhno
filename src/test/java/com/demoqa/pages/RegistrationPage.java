@@ -2,15 +2,16 @@ package com.demoqa.pages;
 
 import com.codeborne.selenide.SelenideElement;
 import com.demoqa.pages.components.CalendarComponent;
+import com.demoqa.pages.components.TableResultComponent;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.value;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class RegistrationPage {
 
     CalendarComponent calendarComponent = new CalendarComponent();
+    TableResultComponent tableResultComponent = new TableResultComponent();
 
     SelenideElement
             firstNameInput = $("#firstName"),
@@ -24,7 +25,10 @@ public class RegistrationPage {
             pictureUploadInput = $("#uploadPicture"),
             currentAddressInput =  $("#currentAddress"),
             stateAndCityInput = $("#stateCity-wrapper"),
-            submitButton = $("#submit");
+            submitButton = $("#submit"),
+            modalThanksForm = $(".modal-dialog"),
+            textInModalThanksForm = $("#example-modal-sizes-title-lg");
+
 
 
     public RegistrationPage openPage(){
@@ -109,6 +113,19 @@ public class RegistrationPage {
 
     public RegistrationPage submit(){
         submitButton.click();
+
+        return this;
+    }
+
+    public RegistrationPage thanksModalAppeared() {
+        modalThanksForm.should(appear);
+        textInModalThanksForm.shouldHave(text("Thanks for submitting the form"));
+
+        return this;
+    }
+
+    public RegistrationPage checkResultTable(String fieldName, String value) {
+        tableResultComponent.tableCheck(fieldName, value);
 
         return this;
     }

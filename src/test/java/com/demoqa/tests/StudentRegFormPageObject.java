@@ -18,15 +18,13 @@ public class StudentRegFormPageObject extends TestBase {
 
     @Test
     void successRegFormTest() {
-        String thanksText = "Thanks for submitting the form";
-
         registrationPage.openPage()
                 .setFirstName("Rajesh")
                 .setLastName("Koothrappali")
                 .setUserEmailInput("Koothrappali@Rajesh.com")
                 .setGender("Male")
                 .setUserNumber("9075556785")
-                .setBirthDay("03", "June", "1990")
+                .setBirthDay("05", "June", "1990")
                 .setSubjects("Computer Science")
                 .setSubjects("Maths")
                 .setSubjects("English")
@@ -37,17 +35,19 @@ public class StudentRegFormPageObject extends TestBase {
                 .setStateAndCity("NCR", "Delhi")
                 .submit();
 
-        $(byText(thanksText)).shouldBe(Condition.visible);
-        $(".table-responsive").$(byText("Student Name")).parent().shouldHave(text("Rajesh Koothrappali"));
-        $(".table-responsive").$(byText("Student Email")).parent().shouldHave(text("Koothrappali@Rajesh.com"));
-        $(".table-responsive").$(byText("Gender")).parent().shouldHave(text("Male"));
-        $(".table-responsive").$(byText("Mobile")).parent().shouldHave(text("9075556785"));
-        $(".table-responsive").$(byText("Date of Birth")).parent().shouldHave(text("29 May,1990"));
-        $(".table-responsive").$(byText("Subjects")).parent().shouldHave(text("Computer Science, Maths, English"));
-        $(".table-responsive").$(byText("Hobbies")).parent().shouldHave(text("Reading, Music"));
-        $(".table-responsive").$(byText("Picture")).parent().shouldHave(text("manWithNoName.jpg"));
-        $(".table-responsive").$(byText("Address")).parent().shouldHave(text("Some address 1"));
-        $(".table-responsive").$(byText("State and City")).parent().shouldHave(text("NCR Delhi"));
+
+        registrationPage.thanksModalAppeared()
+                        .checkResultTable("Student Name","Rajesh Koothrappali")
+                        .checkResultTable("Student Email", "Koothrappali@Rajesh.com")
+                        .checkResultTable("Gender", "Male")
+                        .checkResultTable("Mobile", "9075556785")
+                        .checkResultTable("Date of Birth", "05 June,1990")
+                        .checkResultTable("Subjects", "Computer Science, Maths, English")
+                        .checkResultTable("Hobbies", "Reading, Music")
+                        .checkResultTable("Picture","manWithNoName.jpg")
+                        .checkResultTable("Address", "Some address 1")
+                        .checkResultTable("State and City", "NCR Delhi");
+
     }
 
 }
