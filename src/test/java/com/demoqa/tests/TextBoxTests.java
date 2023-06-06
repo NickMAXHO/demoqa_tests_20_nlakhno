@@ -10,6 +10,7 @@ public class TextBoxTests extends TestBase{
     void successTest(){
 
         textBoxPage.openPage()
+                   .bannerRemove()
                    .setFullName("Frol","Kalistratov")
                    .setUserEmail("Kalistratov@frol.com")
                    .setCurrentAddress("Some address 1")

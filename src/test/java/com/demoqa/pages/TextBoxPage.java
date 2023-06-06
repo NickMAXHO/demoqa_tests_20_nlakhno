@@ -3,8 +3,8 @@ package com.demoqa.pages;
 import com.codeborne.selenide.SelenideElement;
 
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.executeJavaScript;
 
 public class TextBoxPage {
     SelenideElement
@@ -20,7 +20,6 @@ public class TextBoxPage {
 
     public TextBoxPage openPage(){
         open("/text-box");
-
         $("div.pattern-backgound").shouldHave(text("Text Box"));
         return this;
     }
@@ -55,5 +54,12 @@ public class TextBoxPage {
         resultEmail.shouldHave(text(email));
         resultCurrentAddress.shouldHave(text(currentAddress));
         resultPermanentAddress.shouldHave(text(permanentAddress));
+    }
+
+    public TextBoxPage bannerRemove(){
+        executeJavaScript("$('#fixedban').remove()");
+        executeJavaScript("$('footer').remove()");
+
+        return this;
     }
 }
