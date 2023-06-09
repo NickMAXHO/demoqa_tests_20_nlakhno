@@ -4,7 +4,6 @@ import com.demoqa.pages.TextBoxPage;
 import org.junit.jupiter.api.Test;
 
 public class TextBoxTests extends TestBase{
-    TextBoxPage textBoxPage = new TextBoxPage();
 
     @Test
     void successTest(){
