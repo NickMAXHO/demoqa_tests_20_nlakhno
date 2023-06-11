@@ -1,17 +1,41 @@
 package com.demoqa.tests;
 
 import com.demoqa.pages.RegistrationPage;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class StudentRegFormPageObject extends TestBase {
+public class StudentRegFormPageObjectAndDataTest extends TestBase {
+
+//    String
+//            firstName = "Rajesh",
+//            lastName = "Koothrappali",
+//            userEmail = "Koothrappali@Rajesh.com";
+//        String
+//            firstName,
+//            lastName,
+//            userEmail;
+//
+//
+//
+//    @BeforeEach
+//    void prepareTestData(){
+//            firstName = "Rajesh";
+//            lastName = "Koothrappali";
+//            userEmail = "Koothrappali@Rajesh.com";
+//    }
+
+    RegistrationPage registrationPage = new RegistrationPage();
 
     @Test
     void successRegFormTest() {
+
+
+
         registrationPage.openPage()
                 .bannerRemove()
-                .setFirstName("Rajesh")
-                .setLastName("Koothrappali")
-                .setUserEmailInput("Koothrappali@Rajesh.com")
+                .setFirstName(TestData.firstName)
+                .setLastName(TestData.lastName)
+                .setUserEmailInput(TestData.userEmail)
                 .setGender("Male")
                 .setUserNumber("9075556785")
                 .setBirthDay("05", "June", "1990")
@@ -26,8 +50,8 @@ public class StudentRegFormPageObject extends TestBase {
                 .submit();
 
         registrationPage.thanksModalAppeared()
-                .checkResultTable("Student Name", "Rajesh Koothrappali")
-                .checkResultTable("Student Email", "Koothrappali@Rajesh.com")
+                .checkResultTable("Student Name", TestData.firstName + " " + TestData.lastName)
+                .checkResultTable("Student Email", TestData.userEmail)
                 .checkResultTable("Gender", "Male")
                 .checkResultTable("Mobile", "9075556785")
                 .checkResultTable("Date of Birth", "05 June,1990")

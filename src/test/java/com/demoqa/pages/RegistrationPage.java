@@ -127,7 +127,7 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage bannerRemove(){
+    public RegistrationPage bannerRemove() {
         executeJavaScript("$('#fixedban').remove()");
         executeJavaScript("$('footer').remove()");
 
