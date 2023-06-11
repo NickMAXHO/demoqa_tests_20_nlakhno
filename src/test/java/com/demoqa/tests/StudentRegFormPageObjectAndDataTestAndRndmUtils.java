@@ -1,52 +1,62 @@
 package com.demoqa.tests;
 
 import com.demoqa.pages.RegistrationPage;
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
 
-import static com.demoqa.utils.RandomUtils.getRandomEmail;
-import static com.demoqa.utils.RandomUtils.getRandomString;
+import java.util.Locale;
+
+import static com.demoqa.utils.RandomUtils.*;
 
 public class StudentRegFormPageObjectAndDataTestAndRndmUtils extends TestBase {
 
     RegistrationPage registrationPage = new RegistrationPage();
+    Faker faker = new Faker(new Locale("en-US"));
+
+    public String firstName = faker.name().firstName(),
+            lastName = faker.name().lastName(),
+            userEmail = faker.internet().emailAddress(),
+            currentAddress = faker.address().fullAddress(),
+            gender = getRandomGender(),
+            userNumber = faker.phoneNumber().subscriberNumber(10),
+            day = String.format("%02d", faker.number().numberBetween(1, 28)),
+            month = getRandomMonth(),
+            year = String.valueOf(getRandomInt(1950, 2003)),
+            state = getRandomState(),
+            city = getRandomCity(state),
+            picName = "manWithNoName.jpg",
+            userHobby = getRandomHobby(),
+            userSubject = getRandomSubject();
 
     @Test
     void successRegFormTest() {
 
-        String firstName = getRandomString(10),
-               lastName = getRandomString(10),
-               userEmail = getRandomEmail();
-
-
-        registrationPage.openPage()
+                registrationPage.openPage()
                 .bannerRemove()
                 .setFirstName(firstName)
                 .setLastName(lastName)
                 .setUserEmailInput(userEmail)
-                .setGender("Male")
-                .setUserNumber("9075556785")
-                .setBirthDay("05", "June", "1990")
-                .setSubjects("Computer Science")
-                .setSubjects("Maths")
-                .setSubjects("English")
-                .setHobby("Reading")
-                .setHobby("Music")
-                .uploadPicture("manWithNoName.jpg")
-                .setCurrentAddress("Some address 1")
-                .setStateAndCity("NCR", "Delhi")
+                .setGender(gender)
+                .setUserNumber(userNumber)
+                .setBirthDay(day, month, year)
+                .setSubjects(userSubject)
+                .setHobby(userHobby)
+                .uploadPicture(picName)
+                .setCurrentAddress(currentAddress)
+                .setStateAndCity(state, city)
                 .submit();
 
         registrationPage.thanksModalAppeared()
                 .checkResultTable("Student Name", firstName + " " + lastName)
                 .checkResultTable("Student Email", userEmail)
-                .checkResultTable("Gender", "Male")
-                .checkResultTable("Mobile", "9075556785")
-                .checkResultTable("Date of Birth", "05 June,1990")
-                .checkResultTable("Subjects", "Computer Science, Maths, English")
-                .checkResultTable("Hobbies", "Reading, Music")
-                .checkResultTable("Picture", "manWithNoName.jpg")
-                .checkResultTable("Address", "Some address 1")
-                .checkResultTable("State and City", "NCR Delhi");
+                .checkResultTable("Gender", gender)
+                .checkResultTable("Mobile", userNumber)
+                .checkResultTable("Date of Birth", day + " " + month + "," + year)
+                .checkResultTable("Subjects", userSubject)
+                .checkResultTable("Hobbies", userHobby)
+                .checkResultTable("Picture", picName)
+                .checkResultTable("Address", currentAddress)
+                .checkResultTable("State and City", state + " " + city);
 
     }
 }
