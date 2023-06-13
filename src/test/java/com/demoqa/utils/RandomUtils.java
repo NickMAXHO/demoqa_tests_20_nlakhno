@@ -2,7 +2,6 @@ package com.demoqa.utils;
 
 import com.github.javafaker.Faker;
 
-import java.security.SecureRandom;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomUtils {
@@ -15,12 +14,6 @@ public class RandomUtils {
     public static String getRandomGender(){
         String[] genders = {"Male", "Female", "Other"};
         return faker.options().option(genders);
-    }
-
-    private static String getRandomItemFromArray(String[] values){
-        int index = getRandomInt(0,values.length - 1);
-
-        return values[index];
     }
 
     public static String getRandomSubject() {
