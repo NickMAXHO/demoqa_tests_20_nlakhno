@@ -4,7 +4,6 @@ import com.codeborne.selenide.Configuration;
 import com.demoqa.pages.RegistrationPage;
 import com.demoqa.pages.TextBoxPage;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 
 public class TestBase {
 //
@@ -24,6 +23,7 @@ public class TestBase {
 
     RegistrationPage registrationPage = new RegistrationPage();
     TextBoxPage textBoxPage = new TextBoxPage();
+    TestData testData = new TestData();
 
     @BeforeAll
     static void beforeAll() {

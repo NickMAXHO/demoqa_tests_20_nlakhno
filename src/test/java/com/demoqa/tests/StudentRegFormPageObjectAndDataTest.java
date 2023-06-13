@@ -1,7 +1,6 @@
 package com.demoqa.tests;
 
 import com.demoqa.pages.RegistrationPage;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class StudentRegFormPageObjectAndDataTest extends TestBase {
@@ -33,9 +32,9 @@ public class StudentRegFormPageObjectAndDataTest extends TestBase {
 
         registrationPage.openPage()
                 .bannerRemove()
-                .setFirstName(TestData.firstName)
-                .setLastName(TestData.lastName)
-                .setUserEmailInput(TestData.userEmail)
+                .setFirstName(TestData.firstNameWithoutRandom)
+                .setLastName(TestData.lastNameWithoutRandom)
+                .setUserEmailInput(TestData.userEmailWithoutRandom)
                 .setGender("Male")
                 .setUserNumber("9075556785")
                 .setBirthDay("05", "June", "1990")
@@ -50,8 +49,8 @@ public class StudentRegFormPageObjectAndDataTest extends TestBase {
                 .submit();
 
         registrationPage.thanksModalAppeared()
-                .checkResultTable("Student Name", TestData.firstName + " " + TestData.lastName)
-                .checkResultTable("Student Email", TestData.userEmail)
+                .checkResultTable("Student Name", TestData.firstNameWithoutRandom + " " + TestData.lastNameWithoutRandom)
+                .checkResultTable("Student Email", TestData.userEmailWithoutRandom)
                 .checkResultTable("Gender", "Male")
                 .checkResultTable("Mobile", "9075556785")
                 .checkResultTable("Date of Birth", "05 June,1990")

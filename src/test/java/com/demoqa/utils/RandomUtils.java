@@ -14,7 +14,7 @@ public class RandomUtils {
 
     public static String getRandomGender(){
         String[] genders = {"Male", "Female", "Other"};
-        return getRandomItemFromArray(genders);
+        return faker.options().option(genders);
     }
 
     private static String getRandomItemFromArray(String[] values){
